@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ALL" strict="true" name="TestLoggerConfiguration">
+	
+	<Properties>
+		<Property name="logFilePattern">./src/test/resources/outputFiles/logFilePattern.log</Property>
+		<Property name="RollinglogFilePattern">./src/test/resources/outputFiles/RollinglogFilePattern.log</Property>
+	</Properties>
+	
+	<Appenders>
+		<Appender type="Colsole" name="ColsolePattern" target="SYSTEM_OUT">
+			<Layout type="PatternLayout" pattern="%d{HH:mm:ss.SSS} [%t] %-5Level %Logger{36} - %msg%n"/>
+		</Appender>
+		<Appender type="File" name="FilePattern" fileName="logFilePattern" immediateFlush="true" filePattern="%d{HH:mm:ss}">
+			<Layout type="PatternLayout" pattern="%d{HH:mm:ss.SSS} [%t] %-5Level %Logger{36} - %msg%n"/>
+		</Appender>
+		<Appender type="RollingFile" name="RolingFilePattern" fileName="RollinglogFilePattern" immediateFlush="true" filePattern="%d{HH:mm:ss}">
+			<Layout type="PatternLayout" pattern="%d{HH:mm:ss.SSS} [%t] %-5Level %Logger{36} - %msg%n"/>
+			<Policies>
+				<Size type="SizeBasedTriggeringPolicy" size="1MB">
+			</Policies>
+		</Appender>
+	</Appenders>
+	
+	<Loggers>
+		<Logger name="packageName1" level="INFO" additivity="false">
+			<AppenderRef ref="FilePattern"/>
+		</Logger>
+		<Logger name="packageName2" level="INFO" additivity="false">
+			<AppenderRef ref="RolingFilePattern"/>
+		</Logger>
+		<Root level="TRACE">
+			<AppenderRef ref="ColsolePattern"/>
+		</Roots>
+	</Loggers>
+</Configuration>

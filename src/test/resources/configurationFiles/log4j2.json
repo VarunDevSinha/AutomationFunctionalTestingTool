@@ -1,0 +1,72 @@
+{
+	"Configuration": {
+		"Status": "ALL",
+		"Strict": true,
+		"Name": "TestLoggerConfiguration",
+		"Properties": [
+			{
+				"name": "logFilePattern",
+				"value": "./src/test/resources/outputFiles/logFilePattern.log"
+			},
+			{
+				"name": "RollinglogFilePattern",
+				"value": "./src/test/resources/outputFiles/RollinglogFilePattern.log"
+			}
+		],
+		"Appenders": [
+			{
+				"type": "Console",
+				"name": "ConsolePattern",
+				"target": "SYSTEM_OUT",
+				"Layout": {
+					"type": "PatternLayout",
+					"pattern": "%d{HH:mm:ss.SSS} [%t] %-5Level %Logger{36} - %msg%n"
+				}
+			},
+			{
+				"type": "File",
+				"name": "FilePattern",
+				"fileName": "logFilePattern",
+				"immediateFlush": true,
+				"filePattern": "%d{HH:mm:ss}",
+				"Layout": {
+					"type": "PatternLayout",
+					"pattern": "%d{HH:mm:ss.SSS} [%t] %-5Level %Logger{36} - %msg%n"
+				}
+			},
+			{
+				"type": "RollingFile",
+				"name": "RolingFilePattern",
+				"fileName": "RollinglogFilePattern",
+				"immediateFlush": true,
+				"filePattern": "%d{HH:mm:ss}",
+				"Layout": {
+					"type": "PatternLayout",
+					"pattern": "%d{HH:mm:ss.SSS} [%t] %-5Level %Logger{36} - %msg%n"
+				},
+				"Policies": {
+					"Type": "SizeBasedTriggeringPolicy",
+					"Size":"1MB"
+				}
+			}
+		],
+		"Loggers": [
+			{
+				"name": "packageName1",
+				"level": "INFO",
+				"additivity": false,
+				"AppenderRef": "FilePattern"
+			},
+			{
+				"name": "packageName2",
+				"level": "INFO",
+				"additivity": false,
+				"AppenderRef": "RolingFilePattern"
+			}
+		],
+		"Root": {
+			"level": "TRACE",
+			"AppenderRef": "ConsolePattern"
+		}
+	}
+}
